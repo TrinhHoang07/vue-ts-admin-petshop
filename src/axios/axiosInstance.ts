@@ -130,7 +130,7 @@ class AxiosRequest {
             baseURL: `http://localhost:3009/`,
         };
 
-        config.headers!.Authorization = `Bearer ${process.env.REACT_APP_API_TOKEN}`;
+        config.headers!.Authorization = `Bearer ${import.meta.env.VITE_API_TOKEN}`;
 
         return config;
     };
