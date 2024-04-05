@@ -2,6 +2,14 @@
 import routesConfig from '@/config/routes';
 import logo from '@/assets/images/logo-petshop.jpg';
 import { RouterLink } from 'vue-router'; 
+import FaUser from '@/assets/icons/FaUser.vue';
+import FaCart from '@/assets/icons/FaCart.vue';
+import MessageCir from '@/assets/icons/MessageCir.vue';
+import HomeIcon from '@/assets/icons/HomeIcon.vue';
+import IconPet from '@/assets/icons/IconPet.vue';
+import Setting from '@/assets/icons/Setting.vue';
+import BoxArrowUp from '@/assets/icons/BoxArrowUp.vue';
+import BoxData from '@/assets/icons/BoxData.vue';
     const props = defineProps<{
         isOpen: boolean
     }>()
@@ -24,19 +32,19 @@ import { RouterLink } from 'vue-router';
             <div class="contents">
                 <RouterLink :to="routesConfig.home" class="link-wrapper">
                     <div class="container-link">
-                        <AiOutlineHome />
+                        <HomeIcon />
                         <span>Trang chủ</span>
                     </div>
                 </RouterLink>
                 <RouterLink :to="routesConfig.chat" class="link-wrapper">
                     <div class="container-link">
-                        <BsChatText />
+                        <MessageCir />
                         <span>Chats</span>
                     </div>
                 </RouterLink>
                 <RouterLink :to="routesConfig.products" class="link-wrapper">
                     <div class="container-link">
-                        <MdOutlinePets />
+                        <IconPet />
                         <span>Sản phẩm</span>
                     </div>
                 </RouterLink>
@@ -54,19 +62,19 @@ import { RouterLink } from 'vue-router';
                 </RouterLink>
                 <RouterLink to="" class="link-wrapper">
                     <div class="container-link">
-                        <BsClipboardData />
+                        <BoxData />
                         <span>Thống kê</span>
                     </div>
                 </RouterLink>
                 <RouterLink to="" class="link-wrapper">
                     <div class="container-link">
-                        <BsBoxArrowUpRight />
+                        <BoxArrowUp />
                         <span>Phân tích</span>
                     </div>
                 </RouterLink>
                 <RouterLink to="" class="link-wrapper">
                     <div class="container-link">
-                        <AiOutlineSetting />
+                        <Setting />
                         <span>Cài đặt</span>
                     </div>
                 </RouterLink>
@@ -91,15 +99,15 @@ import { RouterLink } from 'vue-router';
     margin-bottom: 24px;
 
     span {
-        color: var(--sidebar-color);
-        font-size: 2.8rem;
-        margin-left: 8px;
+        font-size: 2.2rem;
+        margin-left: 16px;
+        color: #FFF;
     }
 }
 
 .logo {
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     display: flex;
 
     img {
@@ -113,7 +121,7 @@ import { RouterLink } from 'vue-router';
 .contents {
     .link-wrapper {
         text-decoration: none;
-        color: var(--sidebar-color);
+        color: #FFF;
     }
 
     .container-link {
@@ -127,7 +135,7 @@ import { RouterLink } from 'vue-router';
 
         span {
             margin-left: 8px;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
     }
 }

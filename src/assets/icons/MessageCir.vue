@@ -19,6 +19,6 @@
 svg {
     width: 24px;
     height: 24px;
-    color: 'dodgerblue';
+    color: #FFF;
 }
 </style>

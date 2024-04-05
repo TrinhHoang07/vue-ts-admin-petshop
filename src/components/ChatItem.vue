@@ -52,3 +52,57 @@ onMounted(() => {
             </div>
         </div>
 </template>
+
+
+<style lang="scss" scoped>
+
+    .chat-item {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        background-color: #2a2b36;
+        color: #FFF;
+
+        &:hover {
+            border-radius: 5px;
+            background-color: #353640;
+            cursor: pointer;
+        }
+
+        .avatar {
+            display: flex;
+            width: 48px;
+            height: 48px;
+            position: relative;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 999px;
+            }
+
+            .seen-message {
+                position: absolute;
+                top: -8px;
+                right: -4px;
+
+                span {
+                    background-color: red;
+                    font-size: 1.4rem;
+                    padding: 0 8px;
+                    border-radius: 999px;
+                }
+            }
+        }
+
+        .info-user {
+            padding-left: 16px;
+
+            .noti-mes {
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+</style>
