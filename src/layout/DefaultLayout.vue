@@ -39,8 +39,14 @@ import { ref } from 'vue';
 
     .wrapper-contents {
         flex: 1;
+        display: flex;
+        flex-direction: column;
         max-height: calc(100vh - 80px);
         overflow-y: auto;
+
+        .contents {
+            flex: 1;
+        }
     }
 }
 
