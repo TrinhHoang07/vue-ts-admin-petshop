@@ -7,7 +7,7 @@ import { useToast } from 'primevue/usetoast';
 import routesConfig from '@/config/routes';
 import { reactive, ref } from 'vue';
 
-    const { setSessions } = useSession();
+const { setSessions } = useSession();
 const apiService = new ApiService();
 const route = useRouter();
 const toast = useToast();

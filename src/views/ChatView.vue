@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import routesConfig from '@/config/routes';
-import PrivateRoute from '@/components/PrivateRoute.vue'
+import PrivateRoute from '@/components/PrivateRoute.vue';
 import BiSearch from '@/assets/icons/BiSearch.vue';
 import ChatBox from '@/components/ChatBox.vue';
 import { computed, onMounted, reactive, ref, watch } from 'vue';
@@ -9,96 +9,95 @@ import { socketContext, stateEvents } from '@/context/SocketContext';
 import { Helper } from '@/helper';
 import ChatItem from '@/components/ChatItem.vue';
 
-const messages  = reactive<{
-  data: TMes[]
+const messages = reactive<{
+    data: TMes[];
 }>({
-  data: []
-})
+    data: [],
+});
 const open = reactive<{
-  data: boolean
+    data: boolean;
 }>({
-  data: false
-})
-const isUser = ref<boolean>(true)
-const seen = ref<string[]>([])
+    data: false,
+});
+const isUser = ref<boolean>(true);
+const seen = ref<string[]>([]);
 const idUser = reactive<{
-  data: string
+    data: string;
 }>({
-  data: ''
-})
+    data: '',
+});
 
 const renderUser = computed(() => {
-  if(messages.data.length > 0 && messages.data[messages.data.length - 1].role === 'admin') {
-    isUser.value = false
-  } else {
-    isUser.value = true
-  }
+    if (messages.data.length > 0 && messages.data[messages.data.length - 1].role === 'admin') {
+        isUser.value = false;
+    } else {
+        isUser.value = true;
+    }
 
-
-  return messages.data.filter(item => item.role === 'user')
-    .filter((v: TMes, i, a: TMes[]) => a.findLastIndex((v2: TMes) => v2.id === v.id) === i)
-    .reverse()
-})
+    return messages.data
+        .filter((item) => item.role === 'user')
+        .filter((v: TMes, i, a: TMes[]) => a.findLastIndex((v2: TMes) => v2.id === v.id) === i)
+        .reverse();
+});
 
 onMounted(() => {
-  const data = sessionStorage.getItem('messages-admin');
+    const data = sessionStorage.getItem('messages-admin');
 
-        if (data) {
-            const values = JSON.parse(data) as TMes[];
+    if (data) {
+        const values = JSON.parse(data) as TMes[];
 
-            if (values.length > 0) {
-                messages.data = (values);
-            }
+        if (values.length > 0) {
+            messages.data = values;
         }
-})
+    }
+});
 
 watch(renderUser, () => {
-  if (isUser && !open) {
-            const idNew = renderUser.value[0]?.id;
-            if (idNew) {
-              if(seen.value.indexOf(idNew) === -1) {
-                seen.value = [...seen.value, idNew]
-              }
+    if (isUser && !open) {
+        const idNew = renderUser.value[0]?.id;
+        if (idNew) {
+            if (seen.value.indexOf(idNew) === -1) {
+                seen.value = [...seen.value, idNew];
             }
         }
-})
+    }
+});
 
 onMounted(() => {
-  if(stateEvents.connected) {
-    socketContext.on('user_sent', (data) => {
-                    messages.data.push({
-                      message: data.message,
-                            name: data.name,
-                            role: data.role,
-                            id: data.id,
-                    })
-                    Helper.handleCreateOrSaveMessage({
-                        message: data.message,
-                        name: data.name,
-                        role: data.role,
-                        id: data.id,
-                    });
-                });
-  }
-})
+    if (stateEvents.connected) {
+        socketContext.on('user_sent', (data) => {
+            messages.data.push({
+                message: data.message,
+                name: data.name,
+                role: data.role,
+                id: data.id,
+            });
+            Helper.handleCreateOrSaveMessage({
+                message: data.message,
+                name: data.name,
+                role: data.role,
+                id: data.id,
+            });
+        });
+    }
+});
 
 const setIdUser = (data: string) => {
-  idUser.data = data;
-}
+    idUser.data = data;
+};
 
 const setOpen = (data: boolean) => {
-  open.data = data;
-}
+    open.data = data;
+};
 
 const setMessages = (data: TMes) => {
-  messages.data.push(data);
-}
-
+    messages.data.push(data);
+};
 </script>
 
 <template>
-  <PrivateRoute :redirect="routesConfig.chat">
-    <div class="wrapper-chat">
+    <PrivateRoute :redirect="routesConfig.chat">
+        <div class="wrapper-chat">
             <div class="header-chat">
                 <h3 class="heading-chat">Chats</h3>
                 <div class="searching">
@@ -107,17 +106,19 @@ const setMessages = (data: TMes) => {
                 </div>
             </div>
             <div>
-                  <div
+                <div
                     v-for="item in renderUser.reverse()"
-                      @click="() => {
-                        idUser.data = (item.id ?? '');
-                          open.data = (true);
-                          seen = seen.filter(k => k !== item.id)
-                      }"
-                      :key="item.id"
-                  >
-                      <ChatItem :item="item" :seen="seen" />
-                  </div>
+                    @click="
+                        () => {
+                            idUser.data = item.id ?? '';
+                            open.data = true;
+                            seen = seen.filter((k) => k !== item.id);
+                        }
+                    "
+                    :key="item.id"
+                >
+                    <ChatItem :item="item" :seen="seen" />
+                </div>
                 <ChatBox
                     :idUser="idUser"
                     :setIdUser="setIdUser"
@@ -128,17 +129,17 @@ const setMessages = (data: TMes) => {
                 />
             </div>
         </div>
-  </PrivateRoute>
+    </PrivateRoute>
 </template>
 
 <style lang="scss" scoped>
-  .wrapper-chat {
+.wrapper-chat {
     background-color: #181924;
     padding: 16px;
     min-height: calc(100vh - 80px - 48px);
 
     .header-chat {
-        color: #FFF;
+        color: #fff;
         .heading-chat {
             font-size: 2.2rem;
             font-weight: 500;
@@ -159,8 +160,8 @@ const setMessages = (data: TMes) => {
             border: none;
             background-color: transparent;
             padding: 12px 0;
-            caret-color: #FFF;
-            color: #FFF;
+            caret-color: #fff;
+            color: #fff;
             font-size: 1.4rem;
         }
     }
@@ -170,7 +171,7 @@ const setMessages = (data: TMes) => {
         align-items: center;
         padding: 16px;
         background-color: #2a2b36;
-        color: #FFF;
+        color: #fff;
 
         &:hover {
             border-radius: 5px;
@@ -214,5 +215,4 @@ const setMessages = (data: TMes) => {
         }
     }
 }
-
 </style>

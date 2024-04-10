@@ -5,7 +5,7 @@ const routesConfig = {
     chat: '/chat',
     login: '/login',
     orders: '/orders',
-    notFound: '*',
+    notFound: '/:pathMatch(.*)*',
 };
 
 export default routesConfig;
