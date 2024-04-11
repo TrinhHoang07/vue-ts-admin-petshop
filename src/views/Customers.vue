@@ -51,7 +51,7 @@ watch(dataSource, () => {
 
 const columns = computed(() => [
     {
-        title: 'STT',
+        title: 'ID',
         dataIndex: 'id',
         key: 'id',
     },

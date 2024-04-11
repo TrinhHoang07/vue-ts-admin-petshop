@@ -63,7 +63,7 @@ watch(data, () => {
 
 const columns = computed(() => [
     {
-        title: 'STT',
+        title: 'ID',
         dataIndex: 'key',
         key: 'stt',
     },

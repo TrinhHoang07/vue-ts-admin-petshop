@@ -11,6 +11,31 @@ import 'swiper/css/pagination';
 
 const chartRef = ref<any>();
 
+const options = {
+	    animationEnabled: true,
+	    title:{
+	      text: "Biểu đồ thống kê đơn hàng"
+	    },
+	    data: [{
+		  type: "column",
+          yValueFormatString: "##\" đơn hàng\"",
+		  dataPoints: [
+		    { label: "Tháng 1",  y: 10 },
+		    { label: "Tháng 2", y: 15 },
+		    { label: "Tháng 3", y: 25 },
+		    { label: "Tháng 4",  y: 30 },
+		    { label: "Tháng 5",  y: 28 },
+		    { label: "Tháng 6",  y: 32 },
+		    { label: "Tháng 7",  y: 48 },
+		    { label: "Tháng 8",  y: 88 },
+		    { label: "Tháng 9",  y: 36 },
+		    { label: "Tháng 10",  y: 79 },
+		    { label: "Tháng 11",  y: 92 },
+		    { label: "Tháng 12",  y: 82 }
+		  ]
+	    }]
+	  }
+
 onMounted(() => {
     new Chart(chartRef.value, {
         type: 'line',
@@ -175,7 +200,9 @@ onMounted(() => {
                 </div>
             </div>
             <div class="chart-statistical">
-                <canvas ref="chartRef"></canvas>
+                <!-- <canvas ref="chartRef"></canvas> -->
+
+                <CanvasJSChart :options="options"/>
             </div>
         </div>
     </PrivateRoute>
