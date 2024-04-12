@@ -19,5 +19,7 @@
 svg {
     width: 22px;
     height: 22px;
+    color: var(--text-color);
+
 }
 </style>

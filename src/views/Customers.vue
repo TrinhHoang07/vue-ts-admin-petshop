@@ -171,7 +171,8 @@ const setDataSource = (data: Customers) => {
     align-items: center;
     justify-content: space-between;
     padding: 16px 24px;
-    background-color: #22222f;
+    background-color: #FFF;
+    box-shadow: 0 0 3px #d7d7d7;
     position: sticky;
     right: 0;
     left: 0;
@@ -187,10 +188,10 @@ const setDataSource = (data: Customers) => {
             align-items: center;
             padding-right: 24px;
             transition: all 0.2s ease-out;
-            color: var(--sidebar-color);
+            color: #333;
 
             &:hover {
-                color: #fff;
+                color: #000;
                 cursor: pointer;
             }
 

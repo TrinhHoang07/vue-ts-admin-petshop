@@ -84,11 +84,12 @@ import BoxData from '@/assets/icons/BoxData.vue';
 
 <style scoped lang="scss">
 .wrapper-sidebar {
-    background-color: #2a2b36;
+    background-color: #FFF;
     padding: 16px 0;
     height: 100vh;
     overflow-y: auto;
     transition: all 0.25s ease-in-out;
+    border-right: 1px solid #d7d7d7;
     flex-shrink: 0;
 }
 
@@ -101,7 +102,7 @@ import BoxData from '@/assets/icons/BoxData.vue';
     span {
         font-size: 2.2rem;
         margin-left: 16px;
-        color: #FFF;
+        color: #333;
     }
 }
 
@@ -121,7 +122,7 @@ import BoxData from '@/assets/icons/BoxData.vue';
 .contents {
     .link-wrapper {
         text-decoration: none;
-        color: #FFF;
+        color: #333;
     }
 
     .container-link {
@@ -130,7 +131,7 @@ import BoxData from '@/assets/icons/BoxData.vue';
         padding: 16px 24px;
 
         &:hover {
-            background-color: #353640;
+            background-color: #f2f3f5;
         }
 
         span {

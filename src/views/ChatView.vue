@@ -134,12 +134,12 @@ const setMessages = (data: TMes) => {
 
 <style lang="scss" scoped>
 .wrapper-chat {
-    background-color: #181924;
+    background-color: #FFF;
     padding: 16px;
     min-height: calc(100vh - 80px - 48px);
 
     .header-chat {
-        color: #fff;
+        color: #333;
         .heading-chat {
             font-size: 2.2rem;
             font-weight: 500;
@@ -150,18 +150,19 @@ const setMessages = (data: TMes) => {
         display: flex;
         align-items: center;
         margin: 16px 0;
-        background-color: #353640;
+        background-color: #f2f3f5;
         border-radius: 999px;
         padding: 0 8px;
 
         input {
             margin-left: 8px;
+            width: 100%;
             outline: none;
             border: none;
             background-color: transparent;
             padding: 12px 0;
-            caret-color: #fff;
-            color: #fff;
+            caret-color: #333;
+            color: #333;
             font-size: 1.4rem;
         }
     }
@@ -170,12 +171,12 @@ const setMessages = (data: TMes) => {
         display: flex;
         align-items: center;
         padding: 16px;
-        background-color: #2a2b36;
-        color: #fff;
+        background-color: #FFF;
+        color: #333;
 
         &:hover {
             border-radius: 5px;
-            background-color: #353640;
+            background-color: #f2f3f5;
             cursor: pointer;
         }
 

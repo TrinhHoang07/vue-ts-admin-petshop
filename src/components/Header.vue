@@ -42,16 +42,16 @@ import avatar from '@/assets/images/logo-petshop.jpg';
 <style lang="scss" scoped>
     .wrapper-header {
     height: 80px;
-    background-color: #22222f;
+    background-color: #fff;
     width: 100%;
-    border-bottom: 1px solid #FFF;
+    border-bottom: 1px solid #d7d7d7;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 24px;
 
     .close-sidebar {
-        color: #FFF;
+        color: #333;
         cursor: pointer;
     }
 

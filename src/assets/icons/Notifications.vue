@@ -18,6 +18,6 @@
 svg {
     width: 24px;
     height: 24px;
-    color: #FFF;
+    color: var(--text-color);
 }
 </style>
