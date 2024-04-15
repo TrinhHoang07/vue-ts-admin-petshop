@@ -6,11 +6,13 @@ import type { Orders as IOrders } from '@/models/Orders';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import Loading from '@/components/Loading.vue';
+import { useConfirm } from 'primevue/useconfirm';
 
 const apiService = new ApiService();
 const isOpen = ref<boolean>(false);
 const isLoading = ref<boolean>(true);
 const toast = useToast();
+const confirm = useConfirm()
 const statusC = ref<{
     status: string;
     id: number;
@@ -130,7 +132,6 @@ const columns = computed(() => [
                                               life: 3000,
                                             })
 
-                                            ////// testttttt => no OK
                                             apiService.orders
                                                 .getOrders()
                                                 .then((res) => {
@@ -200,12 +201,49 @@ const columns = computed(() => [
                                 <a-button
                                     @click="
                                         () =>
-                                            toast.add({
-                                                severity: 'error',
-                                                summary: 'Thất bại',
-                                                detail: 'Xóa đơn hàng thất bại',
-                                                life: 3000,
-                                            })
+                                        confirm.require({
+                                            header: 'Thông báo',
+                                            message: 'Bạn có chắc chắn muốn hủy không?',
+                                            acceptLabel: 'Đồng ý',
+                                            rejectLabel: 'Quay lại',
+                                            accept: () => {
+
+                                                apiService.orders
+                                                    .updateStatus(record.orders_id.toString(), {
+                                                        status: 'cancel',
+                                                    })
+                                                    .then((res) => {
+                                                        if (res.message === 'success') {
+                                                            toast.add({
+                                                                severity: 'success',
+                                                                summary: 'Thành công',
+                                                                detail: 'Hủy đơn hàng thành công',
+                                                                life: 3000,
+                                                            })
+
+                                                            apiService.orders
+                                                                .getOrders()
+                                                                .then((res) => {
+                                                                    if (res.message === 'success') {
+                                                                        data = (res.data as IOrders[]);
+                                                                        isOpen = false
+                                                                    }
+                                                                })
+                                                                .catch((err) => console.error(err));
+                                                        } else {
+                                                            toast.add({
+                                                                severity: 'error',
+                                                                summary: 'Thất bại',
+                                                                detail: 'Hủy đơn hàng thất bại',
+                                                                life: 3000,
+                                                            })
+                                                            isOpen = false
+                                                        }
+                                                    })
+                                                    .catch((err) => console.error(err));
+                                            },
+                                        })
+                                            
                                     "
                                     type="default"
                                 >
