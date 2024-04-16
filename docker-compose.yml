@@ -1,0 +1,15 @@
+version: '3.0'
+
+services:
+  app:
+    container_name: vue-petshop-admin
+    image: vue-petshop-admin:dev
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3001:8080
+    volumes:
+      - .:/project
+      - /project/node_modules
+    
