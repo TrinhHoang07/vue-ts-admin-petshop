@@ -57,13 +57,15 @@ export class ApiService {
         const route = {
             getOrders: 'admin/orders/all',
             updateStatus: (id: string) => `admin/orders/status/${id}`,
-            deleteOrder: (id: string) => `admin/orders/delete/${id}`
+            deleteOrder: (id: string) => `admin/orders/delete/${id}`,
+            dataHome: (year: number) => `admin/statistical-api/${year}`,
         };
 
         return {
             getOrders: (query?: any): Promise<any> => AxiosClientApi.get(route.getOrders, query),
             updateStatus: (id: string, data: any) => AxiosClientApi.put(route.updateStatus(id), data),
             deleteOrder: (id: string) => AxiosClientApi.delete(route.deleteOrder(id)),
+            getDataHome: (year: number) => AxiosClientApi.get(route.dataHome(year)),
 
             route,
         };
