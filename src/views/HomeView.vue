@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import routesConfig from '@/config/routes';
 import PrivateRoute from '@/components/PrivateRoute.vue';
+import ModalViewProduct from '@/components/ModalViewProduct.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Navigation } from 'swiper/modules';
 import { onMounted, ref, watch } from 'vue';
 import CardHome from '@/components/CardHome.vue';
-import Chart from 'chart.js/auto';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { ApiService } from '@/axios/ApiService';
 
-const chartRef = ref<any>();
 const apiService = new ApiService();
 const optionsChart = ref<any>([]);
 const dataHome = ref<any>({});
+const detailProView = ref<any>({});
+
+const handleCloseProView = () => {
+    detailProView.value = {};
+};
 
 onMounted(() => {
     apiService.orders
@@ -27,8 +31,6 @@ onMounted(() => {
 });
 
 watch(dataHome, () => {
-    console.log(JSON.stringify(dataHome?.value?.dataSetChart[0].data.length));
-
     optionsChart.value = {
         animationEnabled: true,
         title: {
@@ -70,90 +72,6 @@ const options = {
         },
     ],
 };
-
-// onMounted(() => {
-//     new Chart(chartRef.value, {
-//         type: 'line',
-//         options: {
-//             responsive: true,
-//             plugins: {
-//                 legend: {
-//                     display: false,
-//                 },
-//                 title: {
-//                     text: 'Biểu đồ thống kê',
-//                     display: true,
-//                     font: {
-//                         size: 24,
-//                         weight: 'bold',
-//                     },
-//                 },
-//             },
-//             interaction: {
-//                 intersect: false,
-//             },
-//             scales: {
-//                 x: {
-//                     display: true,
-//                     title: {
-//                         display: true,
-//                     },
-//                 },
-//                 y: {
-//                     display: true,
-//                     title: {
-//                         display: false,
-//                         text: 'Value',
-//                     },
-//                     suggestedMin: -10,
-//                     suggestedMax: 200,
-//                 },
-//             },
-//         },
-//         data: {
-//             labels: [
-//                 'Tháng 1',
-//                 'Tháng 2',
-//                 'Tháng 3',
-//                 'Tháng 4',
-//                 'Tháng 5',
-//                 'Tháng 6',
-//                 'Tháng 7',
-//                 'Tháng 8',
-//                 'Tháng 9',
-//                 'Tháng 10',
-//                 'Tháng 11',
-//                 'Tháng 12',
-//             ],
-//             datasets: [
-//                 {
-//                     label: 'Số lượng đơn hàng (đã bán)',
-//                     data: [0, 20, 20, 60, 60, 120, 100, 180, 120, 125, 105, 110, 170],
-//                     borderColor: 'red',
-//                     fill: false,
-//                     cubicInterpolationMode: 'monotone',
-//                     tension: 0.4,
-//                 },
-//                 {
-//                     label: 'Số lượng người dùng',
-//                     data: [0, 10, 35, 55, 68, 83, 95, 110, 119, 125, 155, 200, 210],
-//                     borderColor: 'blue',
-//                     fill: false,
-//                     cubicInterpolationMode: 'monotone',
-//                     tension: 0.4,
-//                 },
-//                 {
-//                     label: 'Số sản phẩm đang có',
-//                     data: [0, 5, 10, 18, 20, 29, 50, 62, 88, 111, 121, 150, 180],
-//                     borderColor: 'yellow',
-//                     fill: false,
-//                     cubicInterpolationMode: 'monotone',
-//                     tension: 0.4,
-//                 },
-//             ],
-//         },
-//     });
-// });
 </script>
 
 <template>
@@ -163,7 +81,7 @@ const options = {
                 <CardHome
                     title="Đơn hàng hôm nay"
                     subTitle="Tiến triển tốt"
-                    :value="dataHome?.totalOrdersToday?.length"
+                    :value="dataHome?.totalOrdersaToday?.length"
                     type="orders"
                     redirect="/"
                 />
@@ -190,6 +108,7 @@ const options = {
                 />
             </div>
             <div class="popular-container">
+                <ModalViewProduct :set-open="handleCloseProView" :data="detailProView" />
                 <h3>sản phẩm bán chạy nhất tuần</h3>
                 <div class="slider-popular-week">
                     <swiper
@@ -203,43 +122,11 @@ const options = {
                         :space-between="16"
                         navigation
                     >
-                        <swiper-slide>
-                            <div class="item-popular">
+                        <swiper-slide v-for="item in dataHome.dataSetWeek" :key="item.q_id">
+                            <div class="item-popular" :style="{ backgroundImage: `url(${item.product_preview_url})` }">
                                 <div class="info-popu">
-                                    <h1>Mèo Anh Lông Ngắn</h1>
-                                    <button>Xem thêm</button>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                        <swiper-slide>
-                            <div class="item-popular">
-                                <div class="info-popu">
-                                    <h1>Chó Alaska</h1>
-                                    <button>Xem thêm</button>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                        <swiper-slide>
-                            <div class="item-popular">
-                                <div class="info-popu">
-                                    <h1>Mèo Anh Lông Dài</h1>
-                                    <button>Xem thêm</button>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                        <swiper-slide>
-                            <div class="item-popular">
-                                <div class="info-popu">
-                                    <h1>Chó Cỏ Việt Nam</h1>
-                                    <button>Xem thêm</button>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                        <swiper-slide>
-                            <div class="item-popular">
-                                <div class="info-popu">
-                                    <h1>Hạt cỡ lớn cho</h1>
-                                    <button>Xem thêm</button>
+                                    <h1>{{ item.product_name }}</h1>
+                                    <button @click="detailProView = item">Xem thêm</button>
                                 </div>
                             </div>
                         </swiper-slide>

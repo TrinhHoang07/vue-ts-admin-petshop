@@ -4,7 +4,7 @@ export class ApiService {
     get auth() {
         const route = {
             register: 'register',
-            login: 'login',
+            login: 'admin/login',
         };
 
         return {

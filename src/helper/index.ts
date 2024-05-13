@@ -1,4 +1,4 @@
-import type { TMes } from "@/models/TMes";
+import type { TMes } from '@/models/TMes';
 
 export class Helper {
     static base64Encode(str: string | object) {
@@ -18,5 +18,20 @@ export class Helper {
         } else {
             sessionStorage.setItem('messages-admin', JSON.stringify([message]));
         }
+    }
+
+    static formatVND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+    static isEmpty(obj) {
+        for (const prop in obj) {
+            if (Object.hasOwn(obj, prop)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
